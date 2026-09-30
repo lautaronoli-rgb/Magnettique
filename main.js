@@ -86,6 +86,29 @@
     }, 3500);
   }
 
+  /* ---------- Videos (ventana emergente) ---------- */
+  function initVideos() {
+    var links = document.querySelectorAll("[data-video]"); if (!links.length) return;
+    var dlg = document.createElement("dialog"); dlg.className = "video-modal";
+    dlg.innerHTML = '<div class="video-modal__bar"><span data-video-label></span><button type="button" class="video-modal__close" aria-label="Cerrar video">×</button></div><video controls playsinline muted preload="none"></video>';
+    document.body.appendChild(dlg);
+    var video = dlg.querySelector("video");
+    function close() { video.pause(); dlg.close(); }
+    dlg.querySelector(".video-modal__close").addEventListener("click", close);
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
+    dlg.addEventListener("close", function () { video.pause(); });
+    links.forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        if (typeof dlg.showModal !== "function") return; // navegador viejo: abre el archivo directo
+        e.preventDefault();
+        video.src = a.getAttribute("data-video"); video.poster = a.getAttribute("data-video-poster") || "";
+        dlg.querySelector("[data-video-label]").textContent = a.getAttribute("data-video-title") || "";
+        video.setAttribute("aria-label", a.getAttribute("data-video-title") || "Video");
+        dlg.showModal(); var p = video.play(); if (p && p.catch) p.catch(function () {});
+      });
+    });
+  }
+
   /* ---------- Formularios de suscripción ---------- */
   function initNewsletter() {
     document.querySelectorAll("[data-newsletter]").forEach(function (form) {
@@ -277,6 +300,7 @@
   safe(initMenu, "menú");
   safe(initReveal, "reveal");
   safe(initHeroLoop, "modelos en bucle");
+  safe(initVideos, "videos");
   safe(initNewsletter, "newsletter");
   safe(initCatalog, "catálogo");
   safe(initProduct, "producto");

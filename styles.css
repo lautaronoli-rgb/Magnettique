@@ -348,3 +348,25 @@ p { margin: 0; }
 .line-card__img, .card__img, .gallery__main, .gallery__thumbs button, .cart-item__img { background: #F6F6F6; }
 .line-card__img img, .card__img img, .gallery__main img, .gallery__thumbs button img, .cart-item__img img { width: 100%; height: 100%; object-fit: contain; }
 .gallery__thumbs button { padding: 0; }
+
+/* Detalles del cierre (Cómo funciona) */
+.details-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 56px; }
+.detail { margin: 0; background: var(--white, #fff); border: 1px solid var(--line); overflow: hidden; }
+.detail img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 45%; transition: transform .6s; }
+.detail:hover img { transform: scale(1.03); }
+.detail figcaption { padding: 18px 22px; display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 15px; }
+.detail figcaption strong { color: var(--navy); font-size: 17px; font-weight: 500; }
+@media (max-width: 900px) { .details-row { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 40px; } }
+
+/* Foto en "Para quien cuida" */
+.split__art--photo { padding: 0; }
+.split__art--photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+
+/* Reproductor de video */
+.video-modal { border: 0; padding: 0; background: transparent; width: min(960px, calc(100vw - 32px)); max-width: none; }
+.video-modal::backdrop { background: rgba(20, 24, 34, .82); }
+.video-modal { overflow: hidden; }
+.video-modal video { display: block; width: 100%; height: auto; max-height: calc(100vh - 120px); object-fit: contain; background: #000; }
+.video-modal__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; color: #fff; font-size: 14px; padding: 0 0 10px; }
+.video-modal__close { background: none; border: 1px solid rgba(255, 255, 255, .5); color: #fff; width: 40px; height: 40px; font-size: 22px; line-height: 1; cursor: pointer; }
+.video-modal__close:hover { background: rgba(255, 255, 255, .12); }
